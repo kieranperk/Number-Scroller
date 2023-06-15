@@ -28,6 +28,9 @@ function toggleTheme() {
 // Add event listener for scroll wheel
 window.addEventListener('wheel', updateNumberOnScroll);
 
-// Set the initial number on page load
-const numberContainer = document.getElementById('number');
-numberContainer.innerText = currentNumber;
+// Get and display the stored number on page load
+window.addEventListener('load', function() {
+    currentNumber = localStorage.getItem('number') || 1;
+    const numberContainer = document.getElementById('number');
+    numberContainer.innerText = currentNumber;
+});
