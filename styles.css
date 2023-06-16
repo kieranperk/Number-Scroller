@@ -100,3 +100,22 @@ body {
     margin: 0;
     padding: 20px;
 }
+
+.scroll-tip {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 14px;
+    transition: opacity 0.3s;
+    opacity: 1;
+}
+
+.scroll-tip p {
+    margin-bottom: 5px;
+}
