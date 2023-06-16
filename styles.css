@@ -56,3 +56,47 @@ body {
 .reset-button.dark {
     color: #fff;
 }
+
+.prestige-button {
+    position: fixed;
+    top: 20px;
+    right: 120px;
+    cursor: pointer;
+    z-index: 9999;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #121212;
+}
+
+.prestige-button.dark {
+    color: #fff;
+}
+
+.warning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: #121212;
+    color: #f44336;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning-message h1 {
+    font-size: 32px;
+    margin: 0;
+    padding: 20px;
+}
+
+.warning-message p {
+    font-size: 24px;
+    margin: 0;
+    padding: 20px;
+}

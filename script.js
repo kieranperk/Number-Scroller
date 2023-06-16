@@ -29,6 +29,9 @@ function toggleTheme() {
     const resetButton = document.getElementById('resetButton');
     resetButton.classList.toggle('dark');
 
+    const prestigeButton = document.getElementById('prestigeButton');
+    prestigeButton.classList.toggle('dark', darkMode);
+
     // Save the dark mode state to local storage
     localStorage.setItem('darkMode', darkMode);
 }
@@ -40,6 +43,10 @@ function resetCounter() {
         numberContainer.innerText = currentNumber;
         localStorage.setItem('number', currentNumber);
     }
+}
+
+function prestigeButtonClick() {
+    confirm('Prestiges Coming Soon!')
 }
 
 // Add event listener for scroll wheel
@@ -60,4 +67,23 @@ window.addEventListener('load', function() {
 
     const resetButton = document.getElementById('resetButton');
     resetButton.classList.toggle('dark', darkMode);
+
+    const prestigeButton = document.getElementById('prestigeButton');
+    prestigeButton.classList.toggle('dark', darkMode);
+});
+
+// Check if the device is a mobile device
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Display warning message if the device is a mobile device
+document.addEventListener('DOMContentLoaded', function() {
+    const warningMessage = document.getElementById('warningMessage');
+    
+    if (isMobileDevice()) {
+        warningMessage.style.display = 'flex';
+    } else {
+        warningMessage.style.display = 'none';
+    }
 });

@@ -9,13 +9,19 @@
     <script src="script.js"></script>
 
     <link rel="icon" type="image/png" href="./images/favicon.png">
-    <meta property="og:title" content="Infinite Number Scroller">
+    <meta property="og:title" content="Number Scroller">
+    <meta property="og:site_name" content="Number Scroller">
     <meta property="og:description" content="How far can you scroll?">
     <meta property="og:image" content="https://raw.githubusercontent.com/kieranperk/Infinite-Number-Scroller/main/images/card.png">
     <meta property="og:url" content="https://numberscroller.com/">
     <meta property="og:type" content="website">
 </head>
 <body>
+    <div class="warning-message" id="warningMessage">
+        <h1>We're sorry!</h1>
+        <p>Our website currently isn't compatible with mobile devices! To continue to the site, you will need a desktop or laptop computer.</p>
+    </div>
+
     <div class="container">
         <div class="number" id="number"></div>
     </div>
@@ -26,6 +32,10 @@
 
     <button class="reset-button" id="resetButton" onclick="resetCounter()">
         <i class="fas fa-undo"></i>
+    </button>
+
+    <button class="prestige-button" id="prestigeButton" onclick="prestigeButtonClick()">
+        <i class="fas fa-crown"></i>
     </button>
 </body>
 </html>
