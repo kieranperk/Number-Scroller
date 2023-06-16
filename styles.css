@@ -15,18 +15,14 @@ body {
 }
 
 a:link {
-    color: #fff;
-    background-color: transparent;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  a:visited {
     color: #888;
-    background-color: transparent;
-    text-decoration: none;
     font-weight: bold;
-  }
+}
+
+a:visited {
+    color: #888;
+    font-weight: bold;
+}
 
 .number {
     font-size: 3rem;
