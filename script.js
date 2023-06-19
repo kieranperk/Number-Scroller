@@ -88,6 +88,9 @@ window.addEventListener('load', function() {
 
     const prestigeButton = document.getElementById('prestigeButton');
     prestigeButton.classList.toggle('dark', darkMode);
+
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    fullscreenButton.classList.toggle('dark', darkMode);
 });
 
 // Check if the device is a mobile device
