@@ -13,6 +13,10 @@ function updateNumberOnScroll(event) {
 
     const numberContainer = document.getElementById('number');
     numberContainer.innerText = currentNumber;
+    numberContainer.className = 'numberscrolling';
+    setTimeout(() => {
+        numberContainer.className = 'number';
+    }, 500);
 
     // Save the number to local storage
     localStorage.setItem('number', currentNumber);
@@ -22,6 +26,9 @@ function toggleTheme() {
     const bodyElement = document.body;
     bodyElement.classList.toggle('dark-theme');
     darkMode = !darkMode;
+
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    fullscreenButton.classList.toggle('dark');
 
     const themeButton = document.getElementById('themeButton');
     themeButton.classList.toggle('dark');
@@ -36,6 +43,17 @@ function toggleTheme() {
     localStorage.setItem('darkMode', darkMode);
 }
 
+function fullscreenButtonClick() {
+      var elem = document.documentElement;
+      if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+      }
+}
+
 function resetCounter() {
     if (confirm('Are you sure you want to reset the counter?')) {
         currentNumber = 1;
@@ -46,7 +64,7 @@ function resetCounter() {
 }
 
 function prestigeButtonClick() {
-    confirm('Prestiges Coming Soon!')
+    confirm('Prestiges are coming very soon!')
 }
 
 // Add event listener for scroll wheel

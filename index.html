@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Infinite Number Scroller</title>
+    <title>Number Scroller</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -25,6 +25,10 @@
     <div class="container">
         <div class="number" id="number"></div>
     </div>
+
+    <button class="fullscreen-button" id="fullscreenButton" onclick="fullscreenButtonClick()">
+        <i class="fas fa-expand"></i>
+    </button>
 
     <button class="theme-button" id="themeButton" onclick="toggleTheme()">
         <i class="fas fa-adjust"></i>

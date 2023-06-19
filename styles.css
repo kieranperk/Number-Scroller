@@ -25,15 +25,54 @@ a:visited {
 }
 
 .number {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
     margin-bottom: 1rem;
+}
+
+.numberscrolling {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+    animation: shake 0.5s;
+    /* animation-iteration-count: infinite; */
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+.fullscreen-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 9999;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #121212;
+}
+
+.fullscreen-button.dark {
+    color: #fff;
 }
 
 .theme-button {
     position: fixed;
     top: 20px;
-    right: 20px;
+    right: 70px;
     cursor: pointer;
     z-index: 9999;
     background-color: transparent;
@@ -54,7 +93,7 @@ a:visited {
 .reset-button {
     position: fixed;
     top: 20px;
-    right: 70px;
+    right: 120px;
     cursor: pointer;
     z-index: 9999;
     background-color: transparent;
@@ -70,7 +109,7 @@ a:visited {
 .prestige-button {
     position: fixed;
     top: 20px;
-    right: 120px;
+    right: 170px;
     cursor: pointer;
     z-index: 9999;
     background-color: transparent;
