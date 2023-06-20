@@ -85,6 +85,10 @@ a:visited {
     color: #fff;
 }
 
+.flip {
+    transform: rotateY(180deg);
+}
+
 .dark-theme {
     background-color: #121212;
     color: #fff;

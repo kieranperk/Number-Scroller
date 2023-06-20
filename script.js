@@ -32,6 +32,7 @@ function toggleTheme() {
 
     const themeButton = document.getElementById('themeButton');
     themeButton.classList.toggle('dark');
+    themeButton.classList.toggle('flip');
 
     const resetButton = document.getElementById('resetButton');
     resetButton.classList.toggle('dark');
@@ -82,12 +83,16 @@ window.addEventListener('load', function() {
 
     const themeButton = document.getElementById('themeButton');
     themeButton.classList.toggle('dark', darkMode);
+    themeButton.classList.toggle('flip', darkMode);
 
     const resetButton = document.getElementById('resetButton');
     resetButton.classList.toggle('dark', darkMode);
 
     const prestigeButton = document.getElementById('prestigeButton');
     prestigeButton.classList.toggle('dark', darkMode);
+
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    fullscreenButton.classList.toggle('dark', darkMode);
 });
 
 // Check if the device is a mobile device
