@@ -110,7 +110,7 @@ a:visited {
     color: #fff;
 }
 
-.prestige-button {
+.upgrade-button {
     position: fixed;
     top: 20px;
     right: 170px;
@@ -122,7 +122,7 @@ a:visited {
     color: #121212;
 }
 
-.prestige-button.dark {
+.upgrade-button.dark {
     color: #fff;
 }
 
