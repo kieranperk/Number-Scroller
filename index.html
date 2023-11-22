@@ -24,33 +24,28 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/kieranperk/Number-Scroller/main/images/card.png" />
 </head>
 <body>
-    <div class="warning-message" id="warningMessage">
-        <h1>We're sorry!</h1>
-        <p>Our website currently isn't compatible with mobile devices! To continue to the site, you will need a desktop or laptop computer.</p>
-    </div>
-
     <div class="container">
         <div class="number" id="number"></div>
+        <div class="upgrade-cost" id="upgradeCost"></div>
     </div>
-
-    <button class="fullscreen-button" id="fullscreenButton" onclick="fullscreenButtonClick()">
-        <i class="fas fa-expand"></i>
-    </button>
-
-    <button class="theme-button" id="themeButton" onclick="toggleTheme()">
-        <i class="fas fa-adjust"></i>
-    </button>
-
-    <button class="reset-button" id="resetButton" onclick="resetCounter()">
-        <i class="fas fa-undo"></i>
-    </button>
-
-    <button class="upgrade-button" id="upgradeButton" onclick="upgradeButtonClick()">
-        <i class="fas fa-crown"></i>
-    </button>
-
+    <div class="buttonContainer">
+        <button class="fullscreen-button" id="fullscreenButton" onclick="fullscreenButtonClick()" title="Toggle Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    
+        <button class="theme-button" id="themeButton" onclick="toggleTheme()" title="Toggle Dark/Light Theme">
+            <i class="fas fa-adjust"></i>
+        </button>
+    
+        <button class="reset-button" id="resetButton" onclick="resetCounter()" title="Reset Counter">
+            <i class="fas fa-undo"></i>
+        </button>
+    
+        <button class="upgrade-button" id="upgradeButton" onclick="upgradeButtonClick()" title="Upgrade Scrolls">
+            <i class="fas fa-shopping-basket"></i>
+        </button>
+    </div>    
     <div class="scroll-tip">
         <p>Scroll with your mouse • View on <a href="https://github.com/kieranperk/Number-Scroller/">Github</a></p>
     </div>
 </body>
-</html>

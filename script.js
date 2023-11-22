@@ -1,157 +1,132 @@
-let currentNumber = localStorage.getItem('number') || 1;
-let scrollsPerScroll = 1
-let scrollsPerScrollLevel = 0 // index in upgades array
-let autoScrollerLevel = 0
-let darkMode = localStorage.getItem('darkMode') === 'true';
-let bgColor = '#ffffff'
-if (darkMode){
-    bgColor = '#121212';
-}else{
-    bgColor = '#ffffff';
-}
+// Main Variables
+let currentNumber = localStorage.getItem("number") || 1;
+let scrollsPerScroll = localStorage.getItem("sps") || 1;
+let scrollsPerScrollLevel = localStorage.getItem("spsl") || 0; // index in upgades array
+let darkMode = localStorage.getItem("darkMode") || "true";
 
-// Stats:
-// Scrolls per scroll - Change in number in every scroll
-// Scrolls per second - Change in number per second of automatic scrolls
-
-// Possible Shop Prices
-// 5000 -> +1 Scrolls per scroll (2 scrolls per scroll)
-// 10,000 -> +2 Scrolls per scroll (4 scrolls per scroll)
-// 20,000 -> Autoscroller (5 Scroll /second)
-// 20,000 -> +4 Scrolls per scroll (8 scrolls per scroll)
-// 50,000 -> +8 Scrolls per scroll (16 scrolls per scroll)
-
-function upgradeButtonClick() {
-    upgrades = [5000, 10000, 20000, 50000]
-    changes = [1, 2, 4, 8]
-    if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
-        currentNumber -= upgrades[scrollsPerScrollLevel]
-        scrollsPerScroll += changes[scrollsPerScrollLevel]
-        scrollsPerScrollLevel +=1
-        updateNumberOnScroll()
-    }
-}
+// Scrolling
 
 function updateNumberOnScroll(event) {
     if (event != null) {
         const delta = Math.sign(event.deltaY);
         // Update the number based on scroll direction
         if (delta > 0) {
-            currentNumber = parseInt(currentNumber)+scrollsPerScroll;
+            currentNumber = parseInt(currentNumber) + parseInt(scrollsPerScroll);
         } else if (delta < 0) {
-            currentNumber = Math.max(1, currentNumber - scrollsPerScroll);
+            currentNumber = Math.max(1, parseInt(currentNumber) - parseInt(scrollsPerScroll));
         }
-    }    
-    const numberContainer = document.getElementById('number');
+    }
+    const numberContainer = document.getElementById("number");
     numberContainer.innerText = currentNumber;
-    numberContainer.className = 'numberscrolling';
+    numberContainer.className = "numberscrolling";
     setTimeout(() => {
-        numberContainer.className = 'number';
+        numberContainer.className = "number";
     }, 500);
-    updateBgColor()
-    // Save the number to local storage
-    localStorage.setItem('number', currentNumber);
-    localStorage.setItem('levels', levelsCompleted);
+    localStorage.setItem("number", currentNumber);
 }
+
+// Upgrade Shop
+upgrades = [5000, 10000, 20000, 50000];
+changes = [1, 2, 4, 8];
+function upgradeButtonClick() {
+    if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
+        currentNumber = parseInt(currentNumber); // Convert to integer
+        scrollsPerScroll += changes[scrollsPerScrollLevel];
+        scrollsPerScrollLevel += 1;
+        localStorage.setItem("spsl", scrollsPerScrollLevel.toString()); // Convert to string before saving
+        localStorage.setItem("sps", scrollsPerScroll.toString()); // Convert to string before saving
+        currentNumber -= upgrades[scrollsPerScrollLevel - 1]; // Subtract the upgrade cost
+        updateNumberOnScroll(); // Update the displayed number
+        updateUpgradeCost(); // Update the displayed upgrade cost
+    } else {
+        alert("You don't have enough scrolls to upgrade. Keep scrolling to earn more!");
+    }
+}
+
+function updateUpgradeCost() {
+    const upgradeCostElement = document.getElementById("upgradeCost");
+    if (scrollsPerScrollLevel < upgrades.length) {
+        upgradeCostElement.innerText = `Next Upgrade Cost: ${upgrades[scrollsPerScrollLevel]}`;
+    } else {
+        upgradeCostElement.innerText = "Max Level Reached";
+    }
+}
+
+// Buttons
 
 function toggleTheme() {
     const bodyElement = document.body;
-    bodyElement.classList.toggle('dark-theme');
+    bodyElement.classList.toggle("dark-theme");
     darkMode = !darkMode;
-    bgColor = document.body.style.backgroundColor
-    if (darkMode){
-    document.getElementById('fullscreenButton').style.color = 'white';
+    localStorage.setItem("darkMode", darkMode);
+    updateButtonStyles();
+}
 
-    const themeButton = document.getElementById('themeButton');
-    themeButton.style.color = 'white';
-    themeButton.classList.toggle('flip');
-
-    document.getElementById('resetButton').style.color = 'white';
-
-    document.getElementById('upgradeButton').style.color = 'white';
-    }else{
-        document.getElementById('fullscreenButton').style.color = 'black';
-
-        const themeButton = document.getElementById('themeButton');
-        themeButton.style.color = 'black';
-        themeButton.classList.toggle('flip');
-    
-        document.getElementById('resetButton').style.color = 'black';
-    
-        document.getElementById('upgradeButton').style.color = 'black';
-    }
-    // Save the dark mode state to local storage
-    localStorage.setItem('darkMode', darkMode);
-    updateBgColor()
+function updateButtonStyles() {
+    const buttonIds = [
+      "fullscreenButton",
+      "themeButton",
+      "resetButton",
+      "upgradeButton",
+    ];
+    buttonIds.forEach((id) => {
+      const button = document.getElementById(id);
+      if (button) {
+        button.style.color = darkMode ? "white" : "black";
+        if (id === "themeButton") {
+          button.classList.toggle("flip", darkMode);
+        }
+      }
+    });
 }
 
 function fullscreenButtonClick() {
-      var elem = document.documentElement;
-      if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
-      }
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(); /* Safari */
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen(); /* IE11 */ 
+    }
 }
 
 function resetCounter() {
-    if (confirm('Are you sure you want to reset the counter?')) {
-        if (darkMode){
-            bgColor = '#121212';
-        }else{
-            bgColor = '#ffffff';
-        }
+    if (confirm("Are you sure you want to reset the counter?")) {
         currentNumber = 1;
-        const numberContainer = document.getElementById('number');
+        scrollsPerScroll = 1
+        scrollsPerScrollLevel = 0
+
+        const numberContainer = document.getElementById("number");
         numberContainer.innerText = currentNumber;
-        localStorage.setItem('number', currentNumber);
-        levelsCompleted = [];
-        localStorage.setItem('levels', levelsCompleted);
-        updateBgColor();
+
+        localStorage.setItem("number", currentNumber);
+        localStorage.setItem("sps", 1);
+        localStorage.setItem("spsl", 0);
+
+        updateNumberOnScroll(); // Update the displayed number
+        updateUpgradeCost(); // Update the displayed upgrade cost
     }
 }
 
-// Add event listener for scroll wheel
-window.addEventListener('wheel', updateNumberOnScroll);
+// Event Listeners
 
-// Get and display the stored number and dark mode state on page load
-window.addEventListener('load', function() {
-    currentNumber = localStorage.getItem('number') || 1;
-    const numberContainer = document.getElementById('number');
+// On-Load
+window.addEventListener("load", function () {
+    // Load variables
+    currentNumber = parseInt(localStorage.getItem("number")) || 1;
+    scrollsPerScroll = parseInt(localStorage.getItem("sps")) || 1;
+    scrollsPerScrollLevel = parseInt(localStorage.getItem("spsl")) || 0;
+    darkMode = localStorage.getItem("darkMode") === "true";
+    // Load number
+    const numberContainer = document.getElementById("number");
     numberContainer.innerText = currentNumber;
-
-    darkMode = localStorage.getItem('darkMode') === 'true';
+    // Load dark mode
     const bodyElement = document.body;
-    bodyElement.classList.toggle('dark-theme', darkMode);
-
-    const themeButton = document.getElementById('themeButton');
-    themeButton.classList.toggle('dark', darkMode);
-    themeButton.classList.toggle('flip', darkMode);
-
-    const resetButton = document.getElementById('resetButton');
-    resetButton.classList.toggle('dark', darkMode);
-
-    const upgradeButton = document.getElementById('upgradeButton');
-    upgradeButton.classList.toggle('dark', darkMode);
-
-    const fullscreenButton = document.getElementById('fullscreenButton');
-    fullscreenButton.classList.toggle('dark', darkMode);
+    bodyElement.classList.toggle("dark-theme", darkMode);
+    updateButtonStyles();
+    updateUpgradeCost();
 });
-
-// Check if the device is a mobile device
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-// Display warning message if the device is a mobile device
-document.addEventListener('DOMContentLoaded', function() {
-    const warningMessage = document.getElementById('warningMessage');
-    
-    if (isMobileDevice()) {
-        warningMessage.style.display = 'flex';
-    } else {
-        warningMessage.style.display = 'none';
-    }
-})
+// Scroll
+window.addEventListener("wheel", updateNumberOnScroll);
+window.addEventListener('scroll', handleScroll);

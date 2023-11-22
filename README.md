@@ -11,7 +11,7 @@ Scroll down the page to increase the score. Its such a simple website, and might
 ## Features
 - [x] Real time scroll counter
 - [x] Light & Dark mode for night owls
-- [ ] Scroll Shop - Buyable upgrades like 2x scrolls to help your playthrough
+- [x] Scroll Shop - Buyable upgrades like 2x scrolls to help your playthrough
 - [ ] Prestiges - Increase your scrolling ability, but reset your progress too?
 ## Contributing
 Pull requests are welcome.
