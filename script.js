@@ -29,7 +29,7 @@ function updateNumberOnScroll(event) {
 
 // Upgrade Shop
 upgrades = [1000, 5000, 10000, 20000, 40000, 80000]
-changes = [1, 2, 4, 8, 15, 30];
+changes = [2, 4, 8, 15, 30, 50];
 function upgradeButtonClick() {
     if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
         currentNumber = parseInt(currentNumber);
