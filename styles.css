@@ -30,10 +30,13 @@ body {
     margin-bottom: 1rem;
 }
 
-.upgrade-cost {
-    font-size: 1.5rem;
+.upgrade-cost-text {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    
+    font-size: 1.2rem;
     color: #888;
-    margin-top: 0.5rem;
 }
 
 .numberscrolling {

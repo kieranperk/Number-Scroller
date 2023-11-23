@@ -24,9 +24,9 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/kieranperk/Number-Scroller/main/images/card.png" />
 </head>
 <body>
+    <div class="upgrade-cost-text" id="upgradeCostText"></div>
     <div class="container">
         <div class="number" id="number"></div>
-        <div class="upgrade-cost" id="upgradeCost"></div>
     </div>
     <div class="buttonContainer">
         <button class="fullscreen-button" id="fullscreenButton" onclick="fullscreenButtonClick()" title="Toggle Fullscreen">
@@ -42,7 +42,11 @@
         </button>
     
         <button class="upgrade-button" id="upgradeButton" onclick="upgradeButtonClick()" title="Upgrade Scrolls">
-            <i class="fas fa-shopping-basket"></i>
+            <i class="fas fa-mouse"></i>
+        </button>
+
+        <button class="autoscroller-button" id="autoscrollerButton" onclick="upgradeAutoscroller()" title="Upgrade Autoscroller">
+            <i class="fas fa-robot"></i>
         </button>
     </div>    
     <div class="scroll-tip">

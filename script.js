@@ -2,6 +2,8 @@
 let currentNumber = localStorage.getItem("number") || 1;
 let scrollsPerScroll = localStorage.getItem("sps") || 1;
 let scrollsPerScrollLevel = localStorage.getItem("spsl") || 0; // index in upgades array
+let autoScrollerSPS = localStorage.getItem("assps") || 0;
+let autoScrollerLevel = localStorage.getItem("asl") || 0;
 let darkMode = localStorage.getItem("darkMode") || "true";
 
 // Scrolling
@@ -26,30 +28,64 @@ function updateNumberOnScroll(event) {
 }
 
 // Upgrade Shop
-upgrades = [5000, 10000, 20000, 50000];
-changes = [1, 2, 4, 8];
+upgrades = [1000, 5000, 10000, 20000, 40000, 80000]
+changes = [1, 2, 4, 8, 15, 30];
 function upgradeButtonClick() {
     if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
-        currentNumber = parseInt(currentNumber); // Convert to integer
-        scrollsPerScroll += changes[scrollsPerScrollLevel];
+        currentNumber = parseInt(currentNumber);
+        scrollsPerScroll = changes[scrollsPerScrollLevel];
         scrollsPerScrollLevel += 1;
-        localStorage.setItem("spsl", scrollsPerScrollLevel.toString()); // Convert to string before saving
-        localStorage.setItem("sps", scrollsPerScroll.toString()); // Convert to string before saving
-        currentNumber -= upgrades[scrollsPerScrollLevel - 1]; // Subtract the upgrade cost
-        updateNumberOnScroll(); // Update the displayed number
-        updateUpgradeCost(); // Update the displayed upgrade cost
+        localStorage.setItem("spsl", scrollsPerScrollLevel.toString());
+        localStorage.setItem("sps", scrollsPerScroll.toString());
+        currentNumber -= upgrades[scrollsPerScrollLevel - 1];
+        updateNumberOnScroll();
+        updateUpgradeCost();
+        showUpgradeConfirmation("Scrolls per scroll upgraded!");
+    } else if (scrollsPerScrollLevel >= upgrades.length) {
+        alert("You've already hit the max level of upgrades!")
     } else {
-        alert("You don't have enough scrolls to upgrade. Keep scrolling to earn more!");
+        alert(`You need ${upgrades[scrollsPerScrollLevel]} scrolls to upgrade. Keep scrolling to earn more!`);
+    }
+}
+
+autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000]
+autoScrollerChanges = [10, 20, 40, 80, 150, 300]
+function upgradeAutoscroller() {
+    if (currentNumber >= autoScrollerUpgrades[autoScrollerLevel]) {
+        currentNumber = parseInt(currentNumber);
+        autoScrollerSPS = autoScrollerChanges[autoScrollerLevel];
+        autoScrollerLevel += 1;
+        localStorage.setItem("asl", autoScrollerLevel.toString());
+        localStorage.setItem("assps", autoScrollerSPS.toString());
+        currentNumber -= autoScrollerUpgrades[autoScrollerLevel - 1];
+        updateNumberOnScroll();
+        showUpgradeConfirmation("AutoScroller upgraded!");
+    } else if (autoScrollerLevel >= autoScrollerUpgrades.length) {
+        alert("You've already hit the max level of upgrades!")
+    } else {
+        alert(`You need ${autoScrollerUpgrades[autoScrollerLevel]} scrolls to upgrade the autoscroller. Keep scrolling to earn more!`);
     }
 }
 
 function updateUpgradeCost() {
-    const upgradeCostElement = document.getElementById("upgradeCost");
-    if (scrollsPerScrollLevel < upgrades.length) {
-        upgradeCostElement.innerText = `Next Upgrade Cost: ${upgrades[scrollsPerScrollLevel]}`;
-    } else {
-        upgradeCostElement.innerText = "Max Level Reached";
+    const upgradeCostElement = document.getElementById("upgradeCostText");
+    spsamounttext = `🖱️ Scrolls per Scroll - ${scrollsPerScroll}`
+    if (scrollsPerScrollLevel >= upgrades.length) {
+        spsamounttext = `🖱️ SPS Amount - ${scrollsPerScroll} (MAX)`
     }
+    asamounttext = `🤖 AutoScroller - ${autoScrollerSPS}`
+    if (autoScrollerLevel >= autoScrollerUpgrades.length) {
+        asamounttext = `🤖 AutoScroller - ${autoScrollerSPS} (MAX)`
+    }
+    upgradeCostElement.innerText = `${spsamounttext}\n${asamounttext}`;
+}
+
+function showUpgradeConfirmation(message) {
+    const upgradeCostElement = document.getElementById("upgradeCostText");
+    upgradeCostElement.innerText = message;
+    setTimeout(() => {
+        updateUpgradeCost();
+    }, 2000);
 }
 
 // Buttons
@@ -68,6 +104,8 @@ function updateButtonStyles() {
       "themeButton",
       "resetButton",
       "upgradeButton",
+      "autoscrollerButton",
+      "upgradeCostText",
     ];
     buttonIds.forEach((id) => {
       const button = document.getElementById(id);
@@ -96,6 +134,10 @@ function resetCounter() {
         currentNumber = 1;
         scrollsPerScroll = 1
         scrollsPerScrollLevel = 0
+        autoScrollerSPS = 0
+        autoScrollerLevel = 0
+
+        clearInterval(autoscrollerInterval);
 
         const numberContainer = document.getElementById("number");
         numberContainer.innerText = currentNumber;
@@ -103,9 +145,15 @@ function resetCounter() {
         localStorage.setItem("number", currentNumber);
         localStorage.setItem("sps", 1);
         localStorage.setItem("spsl", 0);
+        localStorage.setItem("asl", 0);
+        localStorage.setItem("assps", 0);
 
-        updateNumberOnScroll(); // Update the displayed number
-        updateUpgradeCost(); // Update the displayed upgrade cost
+        updateNumberOnScroll();
+        updateUpgradeCost();
+
+        setTimeout(function() {
+            autoscrollerInterval = setInterval(handleAutoscroller, 1000);
+        }, 2000);
     }
 }
 
@@ -117,6 +165,8 @@ window.addEventListener("load", function () {
     currentNumber = parseInt(localStorage.getItem("number")) || 1;
     scrollsPerScroll = parseInt(localStorage.getItem("sps")) || 1;
     scrollsPerScrollLevel = parseInt(localStorage.getItem("spsl")) || 0;
+    autoScrollerSPS = parseInt(localStorage.getItem("assps")) || 0;
+    autoScrollerLevel = parseInt(localStorage.getItem("asl")) || 0;
     darkMode = localStorage.getItem("darkMode") === "true";
     // Load number
     const numberContainer = document.getElementById("number");
@@ -129,4 +179,25 @@ window.addEventListener("load", function () {
 });
 // Scroll
 window.addEventListener("wheel", updateNumberOnScroll);
-window.addEventListener('scroll', handleScroll);
+
+// Loops
+
+// Autoscroller logic
+function handleAutoscroller() {
+    if (autoScrollerLevel > 0) {
+        currentNumber += autoScrollerSPS;
+        updateNumberOnScroll()
+        localStorage.setItem("number", currentNumber);
+    }
+}
+
+// Set up the autoscroller loop
+let autoscrollerInterval = setInterval(handleAutoscroller, 1000);
+
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+        clearInterval(autoscrollerInterval);
+    } else {
+        autoscrollerInterval = setInterval(handleAutoscroller, 1000);
+    }
+});
