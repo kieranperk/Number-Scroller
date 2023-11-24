@@ -69,13 +69,13 @@ function upgradeAutoscroller() {
 
 function updateUpgradeCost() {
     const upgradeCostElement = document.getElementById("upgradeCostText");
-    spsamounttext = `🖱️ Scrolls per Scroll - ${scrollsPerScroll}`
+    spsamounttext = `🖱️ Scrolls per Scroll: ${scrollsPerScroll}`
     if (scrollsPerScrollLevel >= upgrades.length) {
-        spsamounttext = `🖱️ SPS Amount - ${scrollsPerScroll} (MAX)`
+        spsamounttext = `🖱️ SPS Amount: ${scrollsPerScroll} (MAX)`
     }
-    asamounttext = `🤖 AutoScroller - ${autoScrollerSPS}`
+    asamounttext = `🤖 AutoScroller: ${autoScrollerSPS}`
     if (autoScrollerLevel >= autoScrollerUpgrades.length) {
-        asamounttext = `🤖 AutoScroller - ${autoScrollerSPS} (MAX)`
+        asamounttext = `🤖 AutoScroller: ${autoScrollerSPS} (MAX)`
     }
     upgradeCostElement.innerText = `${spsamounttext}\n${asamounttext}`;
 }
