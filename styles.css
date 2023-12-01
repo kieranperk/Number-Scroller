@@ -75,10 +75,6 @@ body {
     color: black;
 }
 
-.buttonContainer button:hover {
-    color: #888;
-}
-
 .button-text {
     text-align: center;
     font-size: 16px;

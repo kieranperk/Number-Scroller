@@ -28,8 +28,8 @@ function updateNumberOnScroll(event) {
 }
 
 // Upgrade Shop
-upgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000];
-changes = [2, 4, 8, 15, 30, 50, 100, 250, 500, 1000];
+upgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
+changes = [2, 4, 8, 15, 30, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
 function upgradeButtonClick() {
     if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
         currentNumber = parseInt(currentNumber);
@@ -48,8 +48,8 @@ function upgradeButtonClick() {
     }
 }
 
-autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000];
-autoScrollerChanges = [10, 20, 40, 80, 150, 300, 500, 1000, 1500, 3000];
+autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
+autoScrollerChanges = [10, 20, 40, 80, 150, 300, 500, 1000, 2500, 5000, 7500, 10000, 25000];
 function upgradeAutoscroller() {
     if (currentNumber >= autoScrollerUpgrades[autoScrollerLevel]) {
         currentNumber = parseInt(currentNumber);
