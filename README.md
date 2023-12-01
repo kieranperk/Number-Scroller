@@ -1,6 +1,5 @@
 # Number Scroller
-<a href="
-https://numberscroller.com"><img src="https://img.shields.io/badge/View%20Live%20Site-4078c0"></a>
+<a href="https://numberscroller.com"><img src="https://img.shields.io/badge/View%20Live%20Site-4078c0"></a>
 <a href="https://github.com/kieranperk/Number-Scroller/stargazers"><img src="https://img.shields.io/github/stars/kieranperk/Number-Scroller?color=2d2d2d"></a>
 <a><img src="https://img.shields.io/github/contributors/kieranperk/Number-Scroller?color=2d2d2d"></a>
 
