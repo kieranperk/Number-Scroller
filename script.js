@@ -161,11 +161,11 @@ function resetCounter() {
 function numberStringShortener(number) {
     if (number > 999 && number < 1000000) {
         number /= 1000
-        number = Math.floor(number)
+        number = +number.toFixed(1)
         return `${number}k`
     } else if (number > 999999 && number < 1000000000) {
         number /= 1000000
-        number = Math.floor(number)
+        number = +number.toFixed(1)
         return `${number}m`
     } else {
         return `${number}x`
