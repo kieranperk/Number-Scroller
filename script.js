@@ -28,8 +28,8 @@ function updateNumberOnScroll(event) {
 }
 
 // Upgrade Shop
-upgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000];
-changes = [2, 4, 8, 15, 30, 50, 100, 250, 500, 1000];
+upgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
+changes = [2, 4, 8, 15, 30, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
 function upgradeButtonClick() {
     if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
         currentNumber = parseInt(currentNumber);
@@ -40,7 +40,7 @@ function upgradeButtonClick() {
         currentNumber -= upgrades[scrollsPerScrollLevel - 1];
         updateNumberOnScroll();
         updateUpgradeCost();
-        showUpgradeConfirmation("Scrolls per scroll upgraded!");
+        showUpgradeConfirmation("🔥", "SPS");
     } else if (scrollsPerScrollLevel >= upgrades.length) {
         alert("You've already hit the max level of upgrades!")
     } else {
@@ -48,8 +48,8 @@ function upgradeButtonClick() {
     }
 }
 
-autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000];
-autoScrollerChanges = [10, 20, 40, 80, 150, 300, 500, 1000, 1500, 3000];
+autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
+autoScrollerChanges = [10, 20, 40, 80, 150, 300, 500, 1000, 2500, 5000, 7500, 10000, 25000];
 function upgradeAutoscroller() {
     if (currentNumber >= autoScrollerUpgrades[autoScrollerLevel]) {
         currentNumber = parseInt(currentNumber);
@@ -59,7 +59,7 @@ function upgradeAutoscroller() {
         localStorage.setItem("assps", autoScrollerSPS.toString());
         currentNumber -= autoScrollerUpgrades[autoScrollerLevel - 1];
         updateNumberOnScroll();
-        showUpgradeConfirmation("AutoScroller upgraded!");
+        showUpgradeConfirmation("🔥", "AS");
     } else if (autoScrollerLevel >= autoScrollerUpgrades.length) {
         alert("You've already hit the max level of upgrades!")
     } else {
@@ -68,21 +68,20 @@ function upgradeAutoscroller() {
 }
 
 function updateUpgradeCost() {
-    const upgradeCostElement = document.getElementById("upgradeCostText");
-    spsamounttext = `🖱️  Scrolls per Scroll: ${scrollsPerScroll}`
-    if (scrollsPerScrollLevel >= upgrades.length) {
-        spsamounttext = `🖱️  Scrolls per Scroll: ${scrollsPerScroll} (MAX)`
-    }
-    asamounttext = `🤖 AutoScroller: ${autoScrollerSPS}`
-    if (autoScrollerLevel >= autoScrollerUpgrades.length) {
-        asamounttext = `🤖 AutoScroller: ${autoScrollerSPS} (MAX)`
-    }
-    upgradeCostElement.innerText = `${spsamounttext}\n${asamounttext}`;
+    const SPSButtonText = document.getElementById("SPSButtonText");
+    const ASButtonText = document.getElementById("ASButtonText");
+    SPSButtonText.innerText = numberStringShortener(scrollsPerScroll)
+    ASButtonText.innerText = numberStringShortener(autoScrollerSPS)
 }
 
-function showUpgradeConfirmation(message) {
-    const upgradeCostElement = document.getElementById("upgradeCostText");
-    upgradeCostElement.innerText = message;
+function showUpgradeConfirmation(message, type) {
+    if (type == "SPS") {
+        const SPSButtonText = document.getElementById("SPSButtonText");
+        SPSButtonText.innerText = message;
+    } else {
+        const ASButtonText = document.getElementById("ASButtonText");
+        ASButtonText.innerText = message;
+    }
     setTimeout(() => {
         updateUpgradeCost();
     }, 2000);
@@ -154,6 +153,22 @@ function resetCounter() {
         setTimeout(function() {
             autoscrollerInterval = setInterval(handleAutoscroller, 1000);
         }, 2000);
+    }
+}
+
+// Helpers
+
+function numberStringShortener(number) {
+    if (number > 999 && number < 1000000) {
+        number /= 1000
+        number = +number.toFixed(1)
+        return `${number}k`
+    } else if (number > 999999 && number < 1000000000) {
+        number /= 1000000
+        number = +number.toFixed(1)
+        return `${number}m`
+    } else {
+        return `${number}x`
     }
 }
 
