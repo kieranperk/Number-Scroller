@@ -1,9 +1,9 @@
 // Main Variables
 let currentNumber = localStorage.getItem("number") || 1;
 let scrollsPerScroll = localStorage.getItem("sps") || 1;
-let scrollsPerScrollLevel = localStorage.getItem("spsl") || 0; // index in upgades array
+let scrollsPerScrollLevel = localStorage.getItem("spsl") || 1; // index in upgades array
 let autoScrollerSPS = localStorage.getItem("assps") || 0;
-let autoScrollerLevel = localStorage.getItem("asl") || 0;
+let autoScrollerLevel = localStorage.getItem("asl") || 1;
 let darkMode = localStorage.getItem("darkMode") || "true";
 
 // Scrolling
@@ -31,6 +31,24 @@ function updateNumberOnScroll(event) {
 upgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
 changes = [2, 4, 8, 15, 30, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
 function upgradeButtonClick() {
+    while (scrollsPerScrollLevel > upgrades.length-3){
+        var last_upgrade = String(upgrades[upgrades.length-1])[0]
+        var last_change = String(changes[changes.length-1])[0]
+        var new_upgrade = ''
+        var new_change = ''
+        if (last_upgrade=="1"){
+            new_upgrade = upgrades[upgrades.length-1]*2.5
+        }else {
+            new_upgrade = upgrades[upgrades.length-1]*2
+        }
+        if (last_change=="1"){
+            new_change = changes[changes.length-1]*2.5
+        }else{
+            new_change = changes[changes.length-1]*2
+        }
+        upgrades.push(new_upgrade)
+        changes.push(new_change)
+    }
     if (currentNumber >= upgrades[scrollsPerScrollLevel]) {
         currentNumber = parseInt(currentNumber);
         scrollsPerScroll = changes[scrollsPerScrollLevel];
@@ -51,6 +69,24 @@ function upgradeButtonClick() {
 autoScrollerUpgrades = [1000, 5000, 10000, 20000, 40000, 80000, 150000, 300000, 500000, 1000000, 2500000, 5000000, 10000000];
 autoScrollerChanges = [10, 20, 40, 80, 150, 300, 500, 1000, 2500, 5000, 7500, 10000, 25000];
 function upgradeAutoscroller() {
+    while (autoScrollerLevel > autoScrollerUpgrades.length-3){
+        var last_upgrade = String(autoScrollerUpgrades[autoScrollerUpgrades.length-1])[0]
+        var last_change = String(autoScrollerChanges[autoScrollerChanges.length-1])[0]
+        var new_upgrade = ''
+        var new_change = ''
+        if (last_upgrade=="1"){
+            new_upgrade = autoScrollerUpgrades[autoScrollerUpgrades.length-1]*2.5
+        }else{
+            new_upgrade = autoScrollerUpgrades[autoScrollerUpgrades.length-1]*2
+        }
+        if (last_change=="1"){
+            new_change = autoScrollerChanges[autoScrollerChanges.length-1]*2.5
+        }else{
+            new_change = autoScrollerChanges[autoScrollerChanges.length-1]*2
+        }
+        autoScrollerUpgrades.push(new_upgrade)
+        autoScrollerChanges.push(new_change)
+    }
     if (currentNumber >= autoScrollerUpgrades[autoScrollerLevel]) {
         currentNumber = parseInt(currentNumber);
         autoScrollerSPS = autoScrollerChanges[autoScrollerLevel];
@@ -177,7 +213,8 @@ function numberStringShortener(number) {
 // On-Load
 window.addEventListener("load", function () {
     // Load variables
-    currentNumber = parseInt(localStorage.getItem("number")) || 1;
+    //currentNumber = parseInt(localStorage.getItem("number")) || 1;
+    currentNumber = 1
     scrollsPerScroll = parseInt(localStorage.getItem("sps")) || 1;
     scrollsPerScrollLevel = parseInt(localStorage.getItem("spsl")) || 0;
     autoScrollerSPS = parseInt(localStorage.getItem("assps")) || 0;
