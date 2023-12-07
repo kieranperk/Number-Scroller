@@ -3,7 +3,7 @@ let currentNumber = localStorage.getItem("number") || 1;
 let scrollsPerScroll = localStorage.getItem("sps") || 1;
 let scrollsPerScrollLevel = localStorage.getItem("spsl") || 1; // index in upgades array
 let autoScrollerSPS = localStorage.getItem("assps") || 0;
-let autoScrollerLevel = localStorage.getItem("asl") || 1;
+let autoScrollerLevel = localStorage.getItem("asl") || 0;
 let darkMode = localStorage.getItem("darkMode") || "true";
 
 // Scrolling
@@ -19,7 +19,7 @@ function updateNumberOnScroll(event) {
         }
     }
     const numberContainer = document.getElementById("number");
-    numberContainer.innerText = currentNumber;
+    numberContainer.innerText = currentNumber.toLocaleString();
     numberContainer.className = "numberscrolling";
     setTimeout(() => {
         numberContainer.className = "number";
@@ -175,7 +175,7 @@ function resetCounter() {
         clearInterval(autoscrollerInterval);
 
         const numberContainer = document.getElementById("number");
-        numberContainer.innerText = currentNumber;
+        numberContainer.innerText = currentNumber.toLocaleString();
 
         localStorage.setItem("number", currentNumber);
         localStorage.setItem("sps", 1);
@@ -195,17 +195,11 @@ function resetCounter() {
 // Helpers
 
 function numberStringShortener(number) {
-    if (number > 999 && number < 1000000) {
-        number /= 1000
-        number = +number.toFixed(1)
-        return `${number}k`
-    } else if (number > 999999 && number < 1000000000) {
-        number /= 1000000
-        number = +number.toFixed(1)
-        return `${number}m`
-    } else {
-        return `${number}x`
-    }
+    return number.toLocaleString('en-US', {
+        maximumFractionDigits: 2,
+        notation: 'compact',
+        compactDisplay: 'short'
+    });
 }
 
 // Event Listeners
@@ -222,7 +216,7 @@ window.addEventListener("load", function () {
     darkMode = localStorage.getItem("darkMode") === "true";
     // Load number
     const numberContainer = document.getElementById("number");
-    numberContainer.innerText = currentNumber;
+    numberContainer.innerText = currentNumber.toLocaleString();
     // Load dark mode
     const bodyElement = document.body;
     bodyElement.classList.toggle("dark-theme", darkMode);
