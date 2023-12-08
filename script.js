@@ -195,11 +195,15 @@ function resetCounter() {
 // Helpers
 
 function numberStringShortener(number) {
-    return number.toLocaleString('en-US', {
-        maximumFractionDigits: 2,
-        notation: 'compact',
-        compactDisplay: 'short'
-    });
+    if (number > 999) {
+        return number.toLocaleString('en-US', {
+            maximumFractionDigits: 2,
+            notation: 'compact',
+            compactDisplay: 'short'
+        });
+    } else {
+        return `${number}x`
+    }
 }
 
 // Event Listeners
