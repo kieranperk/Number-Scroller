@@ -211,8 +211,7 @@ function numberStringShortener(number) {
 // On-Load
 window.addEventListener("load", function () {
     // Load variables
-    //currentNumber = parseInt(localStorage.getItem("number")) || 1;
-    currentNumber = 1
+    currentNumber = parseInt(localStorage.getItem("number")) || 1;
     scrollsPerScroll = parseInt(localStorage.getItem("sps")) || 1;
     scrollsPerScrollLevel = parseInt(localStorage.getItem("spsl")) || 0;
     autoScrollerSPS = parseInt(localStorage.getItem("assps")) || 0;
