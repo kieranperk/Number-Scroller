@@ -62,7 +62,7 @@ function upgradeButtonClick() {
     } else if (scrollsPerScrollLevel >= upgrades.length) {
         alert("You've already hit the max level of upgrades!")
     } else {
-        alert(`You need ${upgrades[scrollsPerScrollLevel]} scrolls to upgrade. Keep scrolling to earn more!`);
+        alert(`You need ${upgrades[scrollsPerScrollLevel].toLocaleString()} scrolls to upgrade. Keep scrolling to earn more!`);
     }
 }
 
@@ -99,7 +99,7 @@ function upgradeAutoscroller() {
     } else if (autoScrollerLevel >= autoScrollerUpgrades.length) {
         alert("You've already hit the max level of upgrades!")
     } else {
-        alert(`You need ${autoScrollerUpgrades[autoScrollerLevel]} scrolls to upgrade the autoscroller. Keep scrolling to earn more!`);
+        alert(`You need ${autoScrollerUpgrades[autoScrollerLevel].toLocaleString()} scrolls to upgrade the autoscroller. Keep scrolling to earn more!`);
     }
 }
 
